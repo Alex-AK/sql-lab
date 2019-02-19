@@ -36,8 +36,37 @@
 
 ## list orders grouped by customer showing the number of orders per customer. _Rattlesnake Canyon Grocery_ should have 7 orders.
 
+```
+SELECT customers.customerName as Customer, count() as "Number Of Orders"
+FROM customers
+JOIN orders ON Orders.CustomerID = Customers.customerId
+group by customers.customerName
+```
+
 ## list customers names and the number of orders per customer. Sort the list by number of orders in descending order. _Ernst Handel_ should be at the top with 10 orders followed by _QUICK-Stop_, _Rattlesnake Canyon Grocery_ and _Wartian Herkku_ with 7 orders each.
+
+```
+select customers.customerName as "Customer", count() as "Number of Orders"
+from customers
+join orders
+orders on orders.customerId = customers.customerId
+group by customers.customerName order by count() desc
+```
 
 ## list orders grouped by customer's city showing number of orders per city. Returns 58 Records with _Aachen_ showing 2 orders and _Albuquerque_ showing 7 orders.
 
+```
+select customers.city as "City", count() as "Number of Orders"
+from customers
+join orders
+orders on orders.customerId = customers.customerId
+group by customers.city
+```
+
 ## delete all users that have no orders. Should delete 17 (or 18 if you haven't deleted the record added) records.
+
+```
+delete from customers where
+NOT EXISTS (select * from orders where customers.customerId = orders.customerId)
+
+```
