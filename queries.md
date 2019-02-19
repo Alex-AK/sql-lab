@@ -69,4 +69,8 @@ group by customers.city
 delete from customers where
 NOT EXISTS (select * from orders where customers.customerId = orders.customerId)
 
+OR
+
+delete from customers where customerId not in (select customerId from orders);
+
 ```
